@@ -21,7 +21,7 @@ namespace CalculadoraPOO.Operacoes
 
         public override string ToString()
         {
-            return Executar().ToString();
+            return $"{base.ToString()} Valores: {Valor1}, {Valor2} Resultado: {Executar().ToString()}";
         }
     }
 }

@@ -12,9 +12,10 @@ namespace CalculadoraPOO
         static decimal valor1 = 0;
         static decimal valor2 = 0;
         static Operacao operacao;
-
+        static List<Operacao> memoria;
         static void Main(string[] args)
         {
+            memoria = new List<Operacao>();
             int menu = 0;
             while (menu == 0)
             {
@@ -29,9 +30,9 @@ namespace CalculadoraPOO
                         case 2:
                         case 3:
                         case 4:
-                            Console.WriteLine($"Resultado: {Operacoes(menu)}");
+                            Console.WriteLine($"{Operacoes(menu)}");
                             break;
-                        case 99:
+                        case 99:                            
                             Console.WriteLine("Deseja realmente sair?");
                             break;
                         default:
@@ -47,8 +48,13 @@ namespace CalculadoraPOO
 
                     if (opcao == "1")
                         menu = 0;
-                    else
+                    else 
+                    {
+                        ImprimirMemoria();
+                        Console.ReadKey();
                         menu = 99;
+                    }
+                        
 
                 }
                 catch (DivideByZeroException e)
@@ -76,10 +82,16 @@ namespace CalculadoraPOO
             }
         }
 
-        private static object Operacoes(int menu)
+        private static void ImprimirMemoria()
         {
-            decimal resultado = 0;
+            foreach (var operacao in memoria)
+            {
+                Console.WriteLine(operacao.ToString());
+            }
+        }
 
+        private static string Operacoes(int menu)
+        {
             switch (menu)
             {
                 case 1:
@@ -105,7 +117,8 @@ namespace CalculadoraPOO
                 default:
                     break;
             }
-            return operacao.Executar();
+            memoria.Add(operacao);
+            return operacao.ToString();
         }
 
         static void LerDados()
